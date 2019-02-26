@@ -18,3 +18,6 @@ user: admin password: admin
 click `choose file`, upload sar data file then select graph type. then click `upload`. BTW: All types will be selected if `Check All` is set.
 ### Step 4
 Click dashboard link URL to get your visualization dashboard 
+
+# Web Screenshots
+![wait](https://raw.githubusercontent.com/zwg0106/sat/master/doc/sar-dashboard-screencapture.png)
