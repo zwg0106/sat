@@ -1,0 +1,98 @@
+version: '2'
+services:
+  redis:
+    image: "redis:alpine"
+    ports:
+    - "${CACHE_PORT}:${CACHE_PORT}"
+
+  metricstore:
+    build:
+      context: lib/metricstore
+    env_file: .env
+    image: sat:metricstore_official
+    expose:
+    - "${DB_PORT}"
+    environment:
+      - POSTGRESQL_PASSWORD=${DB_PASSWORD}
+      - POSTGRESQL_USER=${DB_USER}
+      - POSTGRESQL_DATABASE=${DB_NAME}
+    ports:
+    - "${METRICSTORE_PORT_MAPPING}:${DB_PORT}"
+
+  datasource:
+    build:
+      context: lib/datasource
+      args:
+        ES_PORT: $ES_PORT
+    env_file: .env
+    image: sat:elasticsearch_new
+    ports:
+    - "${DATASOURCE_PORT_MAPPING}:${ES_PORT}"
+
+  frontend:
+    build:
+      context: lib/frontend
+      args:
+        GRAFANA_PORT: $GRAFANA_PORT
+    env_file: .env
+    image: sat:grafana_new
+    ports:
+    - "${FRONTEND_PORT_MAPPING}:${GRAFANA_PORT}"
+    links:
+     - metricstore
+     - datasource
+    depends_on:
+     - metricstore
+     - datasource
+
+  middleware:
+    build:
+      context: lib/middleware
+      args:
+        MIDDLEWARE_PORT: $MIDDLEWARE_PORT
+    env_file: .env
+    image: sat:api
+    ports:
+    - "${MIDDLEWARE_PORT_MAPPING}:${MIDDLEWARE_PORT}"
+    depends_on:
+     - datasource
+    links:
+     - datasource
+     - metricstore
+     - frontend
+
+  web:
+    restart: always
+    build:
+      context: lib/backend
+      args:
+        BACKEND_SERVER_PORT: $BACKEND_SERVER_PORT
+    env_file: .env
+    image: sat:backend
+    ports:
+    - "${BACKEND_PORT_MAPPING}:${BACKEND_SERVER_PORT}"
+    depends_on:
+     - metricstore
+     - datasource
+     - redis
+     - frontend
+     - middleware
+    links:
+     - metricstore
+     - datasource
+     - frontend
+     - middleware
+     - redis
+
+  nginx:
+    restart: always
+    # build: lib/proxy
+    build:
+      context: lib/proxy
+      args:
+        PROXY_PORT: $PROXY_PORT
+    image: sat:proxy
+    ports:
+    - "${PROXY_PORT_MAPPING}:${PROXY_PORT}"
+    links:
+      - web:web

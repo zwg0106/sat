@@ -1,0 +1,14 @@
+{
+  "collapsed": true,
+  "gridPos": {
+    "h": 1,
+    "w": 24,
+    "x": 0,
+    "y": 2 
+  },
+  "editable": true,
+  "id": 100, 
+  "panels": [],
+  "title": "CPU utilization [ ALL ]",
+  "type": "row"
+}

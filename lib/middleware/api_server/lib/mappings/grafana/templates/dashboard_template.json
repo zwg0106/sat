@@ -1,0 +1,66 @@
+{
+  "id": 1,
+  "title": "New dashboard",
+  "uid": "",
+  "tags": [],
+  "style": "dark",
+  "timezone": "browser",
+  "editable": true,
+  "hideControls": false,
+  "graphTooltip": 0,
+  "panels": [
+    {
+      "collapsed": true,
+      "editable":true,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 1 
+      },
+      "id": 90,
+      "panels": [],
+      "title": "SAR Description",
+      "type": "row"            
+    }
+  ],
+  "time": {
+    "from": "2015-06-22T14:20:38.000Z",
+    "to": "2015-06-22T14:40:34.000Z"
+  },
+  "timepicker": {
+    "refresh_intervals": [
+      "5s",
+      "10s",
+      "30s",
+      "1m",
+      "5m",
+      "15m",
+      "30m",
+      "1h",
+      "2h",
+      "1d"
+    ],
+    "time_options": [
+      "5m",
+      "15m",
+      "1h",
+      "6h",
+      "12h",
+      "24h",
+      "2d",
+      "7d",
+      "30d"
+    ]
+  },
+  "templating": {
+    "list": []
+  },
+  "annotations": {
+    "list": []
+  },
+  "refresh": false,
+  "schemaVersion": 16,
+  "version": 1,
+  "links": []
+}

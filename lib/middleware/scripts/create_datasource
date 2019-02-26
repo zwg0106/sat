@@ -1,0 +1,80 @@
+#!/usr/bin/env python3
+
+import time
+import configparser
+import psycopg2
+
+config = configparser.ConfigParser()
+CFG_PATH = "/opt/api_server/sar-index.cfg"
+
+def tstos(ts=None):
+    return time.strftime("%Y-%m-%d %H:%M:%S", time.localtime(ts))
+
+def main():
+    config.read(CFG_PATH)
+
+    db_host = config.get('Postgres','db_host')
+    db_port = config.get('Postgres','db_port')
+    db_name = config.get('Postgres','db_name')
+    db_user = config.get('Postgres','db_user')
+    db_pass = config.get('Postgres','db_password')
+
+    conn = psycopg2.connect("dbname='%s' user='%s' host='%s' port='%s' password='%s'" %
+                            (db_name, db_user, db_host, db_port, db_pass))
+    c = conn.cursor()
+
+    created = tstos(time.time())
+    updated = tstos(time.time())
+
+
+    ds_name = config.get('Grafana', 'ds_name')
+    pattern = config.get('Grafana', 'pattern')
+    ds_url = "%s://%s:%s" % (config.get('ElasticSearch', 'protocol'),
+			     config.get('ElasticSearch', 'host'),
+			     config.get('ElasticSearch', 'port'))
+
+    interval = '{"interval":"Daily","timeField":"%s"}' % \
+	       (config.get('Grafana', 'timeField'))
+
+    # Columns and their example values are as follows ():
+    # ['id', 'org_id', 'version', 'type', 'name', 'access', 'url', 'password',
+    #  (3, 1, 0, 'elasticsearch', 'elastic', 'proxy', 'http://172.17.0.3:9200', '',
+    # 'user', 'database', 'basic_auth', 'basic_auth_user', 'basic_auth_password',
+    #  '', '[sat.sar-]YYYYMMDD', False, '', '',
+    # 'is_default', 'json_data', 'created', 'updated', 'with_credentials']
+    #  False, '{"interval":"Daily","timeField":"_timestamp"}',  '2016-05-27 06:50:15', '2016-05-27 06:50:15', False)
+
+    # for now, we are logging in through default admin user whose org_id is 1
+    org_id = 1
+
+    # we now have to take care of following unique tuple cases:
+    # (id), (org_id, name),
+
+    # if (org_id, name) clash: delete it add new data for the same later
+    c.execute("DELETE FROM data_source WHERE org_id = %s AND name = '%s'" % (org_id, ds_name))
+
+    row_id = 1
+    # check for UPSERT feature compatibility
+    if conn.server_version < 90501:
+        c.execute("SELECT MAX(id) FROM data_source")
+        max_row_id = c.fetchone()[0]
+        if max_row_id:
+            row_id = max_row_id + 1
+        CMD = "INSERT INTO data_source VALUES %s"
+    else:
+        CMD = "INSERT INTO data_source VALUES %s ON CONFLICT (id) DO UPDATE SET id = data_source.id+1"
+
+    values = "(%s,%s,0,'elasticsearch','%s','proxy','%s','','','%s',False,'','',False,'%s', '%s', '%s')" \
+                    % (row_id, org_id, ds_name, ds_url, pattern, interval, created, updated)
+
+    c.execute(CMD % (values))
+    conn.commit()
+    conn.close()
+    
+    return "created datasource.."
+
+if __name__ == '__main__':
+    try:
+        print(main())
+    except:
+        raise

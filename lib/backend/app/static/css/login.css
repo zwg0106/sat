@@ -1,0 +1,12 @@
+.login{
+    background: #eee;
+    width: 400px;
+    margin: 0 auto;
+    overflow: hidden;
+    padding: 10px;
+}
+
+.form-container{
+    width: 300px;
+    margin: 0 auto;
+}

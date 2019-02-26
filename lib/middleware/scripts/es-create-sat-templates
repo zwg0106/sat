@@ -1,0 +1,133 @@
+#!/usr/bin/env python3
+#
+# usage:
+# $ es-create-vos-index-templates <config path>
+#
+# Create the sar index templates, with explicit mappings found in
+# ../lib/mappings/*.json.
+
+# command line alternative
+# curl -s -H 'Content-Type: application/json' -XPUT 'http://0.0.0.0:9200/_template/sat.sar-02' -d @/home/arcolife/template.json | json_pp
+
+from __future__ import print_function
+
+import os, sys
+
+cfg_name = "/opt/api_server/sar-index.cfg"
+
+import configparser
+
+config = configparser.ConfigParser()
+config.read(cfg_name)
+
+try:
+    URL = config.get('ElasticSearch', 'server')
+except configparser.NoSectionError:
+    print("Need a [ElasticSearch] section with host and port defined in %s"
+          " configuration file" % cfg_name, file=sys.stderr)
+    sys.exit(1)
+except configparser.NoOptionError:
+    host = config.get('ElasticSearch', 'host')
+    port = config.get('ElasticSearch', 'port')
+else:
+    host, port = URL.rsplit(':', 1)
+hosts = [dict(host=host, port=port),]
+INDEX_PREFIX = config.get('Settings', 'index_prefix')
+SAR_VERSION = config.get('Settings', 'sar_template_version')
+# SAR_VERSION = '02'
+
+# Since we are not using SSDs, set merge max thread count to 1 to avoid a drop
+# in performance using the default. See:
+#
+#     http://www.elasticsearch.org/guide/en/elasticsearch/reference/current/index-modules-merge.html
+#
+# We also bump up the transaction log buffer size to 1gb on the recommendation
+# of this page:
+#
+#     http://www.elasticsearch.org/blog/performance-considerations-elasticsearch-indexing/
+settings = dict(
+    merge=dict(
+        scheduler=dict(
+            max_thread_count=1)),
+    translog=dict(
+        flush_threshold_size='1g'),
+    mapping=dict(
+        total_fields=dict(
+            limit='10000')),
+    )
+
+
+NUMBER_OF_SHARDS = config.get('Settings', 'number_of_shards')
+if NUMBER_OF_SHARDS:
+    settings['number_of_shards'] = NUMBER_OF_SHARDS
+
+NUMBER_OF_REPLICAS = config.get('Settings', 'number_of_replicas')
+if NUMBER_OF_REPLICAS:
+    settings['number_of_replicas'] = NUMBER_OF_REPLICAS
+
+
+def fetch_mapping(mapping_fn):
+    with open(mapping_fn, "r") as mappingfp:
+        try:
+            mapping = json.load(mappingfp)
+        except ValueError as err:
+            print("%s: %s" % (mapping_fn, err), file=sys.stderr)
+            sys.exit(1)
+    # alternate validity check:
+    # BASIC_TEMPLATE_KEYS = {'settings', 'mappings', 'index_patterns'}
+    # if set(mapping.keys()) != BASIC_TEMPLATE_KEYS:
+    if len(mapping.keys()) != 1:
+        print("Invalid mapping file: %s" % mapping_fn, file=sys.stderr)
+        sys.exit(1)
+    return mapping['mappings']
+
+import glob, json
+
+LIBDIR = config.get('Grafana', 'templates_path')
+
+sar_mappings = fetch_mapping(os.path.join(LIBDIR, "sar.json"))
+pattern_1 = '%s.sar-*' % (INDEX_PREFIX,)
+sar_body = dict(
+    index_patterns = [ pattern_1 ],
+    settings=settings,
+    mappings=sar_mappings)
+
+# Silence logging messages from the elasticsearch client library
+import logging
+try:
+    from logging import NullHandler
+except ImportError:
+    class NullHandler(logging.Handler):
+        def handle(self, record):
+            pass
+        def emit(self, record):
+            pass
+        def createLock(self):
+            self.lock = None
+
+logging.getLogger('elasticsearch').addHandler(NullHandler())
+
+from elasticsearch import Elasticsearch
+es = Elasticsearch(hosts)
+
+def create_template(tname, tbody):
+    if es.indices.exists_template(name=tname):
+        print("Template %s exists" % tname)
+        return
+    try:
+        res = es.indices.put_template(name=tname, body=tbody)
+    except Exception as err:
+        print(repr(err), file=sys.stderr)
+        sys.exit(1)
+    else:
+        try:
+            if not res['acknowledged']:
+                print('ERROR - Template creation was not acknowledged', file=sys.stderr)
+                sys.exit(1)
+        except KeyError:
+            print('ERROR - Template creation failed: %r' % res, file=sys.stderr)
+            sys.exit(1)
+        print("Created template %s" % tname)
+
+tname = '%s.sar-%s' % (INDEX_PREFIX, SAR_VERSION)
+create_template(tname, sar_body)

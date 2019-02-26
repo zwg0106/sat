@@ -1,0 +1,28 @@
+[ElasticSearch]
+host =
+port = 9200
+protocol = http
+
+[Settings]
+index_prefix = sat
+index_version = 1
+bulk_action_count = 2000
+number_of_shards = 1
+number_of_replicas = 5
+sar_template_version=02
+
+[Grafana]
+ds_name = elastic
+pattern = [sat.sar-]*
+timeField = ts
+templates_path = /opt/api_server/lib/mappings/
+
+[Api]
+api_port = 5000
+
+[Postgres]
+db_host =
+db_password = grafana
+db_name = grafana
+db_user = grafana
+db_port = 5432

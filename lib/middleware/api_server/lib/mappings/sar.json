@@ -1,0 +1,40 @@
+{
+  "mappings": {
+    "sar": {
+      "properties": {
+        "_metadata": {
+          "properties": {
+            "sysdata-version": {
+              "doc_values": true,
+              "type": "float"
+            },
+            "sysname": {
+              "type": "keyword"
+            },
+            "machine": {
+              "type": "keyword"
+            },
+            "number-of-cpus": {
+              "doc_values": true,
+              "type": "integer"
+            },
+            "file-date": {
+              "format": "yyyy-MM-dd",
+              "doc_values": true,
+              "type": "date"
+            },
+            "release": {
+              "type": "keyword"
+            },
+            "nodename": {
+              "type": "keyword"
+            }
+          }
+        },
+        "recorded_on": {
+          "type": "date"
+        }
+      }
+    }
+  }
+}

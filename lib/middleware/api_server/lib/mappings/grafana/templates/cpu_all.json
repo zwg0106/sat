@@ -1,0 +1,690 @@
+{
+  "collapse": true,
+  "editable": true,
+  "height": "250px",
+  "panels": [
+    {
+      "aliasColors": {},
+      "bars": false,
+      "datasource": "elastic",
+      "editable": true,
+      "error": false,
+      "fill": 1,
+      "grid": {
+        "leftLogBase": 1,
+        "leftMax": null,
+        "leftMin": null,
+        "rightLogBase": 1,
+        "rightMax": null,
+        "rightMin": null,
+        "threshold1": null,
+        "threshold1Color": "rgba(216, 200, 27, 0.27)",
+        "threshold2": null,
+        "threshold2Color": "rgba(234, 112, 112, 0.22)"
+      },
+      "id": 19,
+      "legend": {
+        "avg": false,
+        "current": false,
+        "max": false,
+        "min": false,
+        "show": true,
+        "total": false,
+        "values": false
+      },
+      "lines": true,
+      "linewidth": 2,
+      "links": [],
+      "nullPointMode": "connected",
+      "percentage": false,
+      "pointradius": 5,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "span": 12,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "bucketAggs": [
+            {
+              "field": "recorded_on",
+              "id": "2",
+              "settings": {
+                "interval": "auto"
+              },
+              "type": "date_histogram"
+            }
+          ],
+          "metrics": [
+            {
+              "field": "cpu-load.cpu-0.steal",
+              "id": "1",
+              "meta": {},
+              "settings": {},
+              "type": "avg"
+            },
+            {
+              "field": "cpu-load.cpu-0.idle",
+              "id": "3",
+              "meta": {},
+              "settings": {},
+              "type": "avg"
+            },
+            {
+              "field": "cpu-load.cpu-0.nice",
+              "id": "4",
+              "meta": {},
+              "settings": {},
+              "type": "avg"
+            },
+            {
+              "field": "cpu-load.cpu-0.iowait",
+              "id": "5",
+              "meta": {},
+              "settings": {},
+              "type": "avg"
+            },
+            {
+              "field": "cpu-load.cpu-0.usr",
+              "id": "6",
+              "meta": {},
+              "settings": {},
+              "type": "avg"
+            },
+            {
+              "field": "cpu-load.cpu-0.sys",
+              "id": "7",
+              "meta": {},
+              "settings": {},
+              "type": "avg"
+            },
+            {
+              "field": "cpu-load.cpu-0.guest",
+              "id": "8",
+              "meta": {},
+              "settings": {},
+              "type": "avg"
+            },
+            {
+              "field": "cpu-load.cpu-0.soft",
+              "id": "9",
+              "meta": {},
+              "settings": {}, 
+              "type": "avg"
+            },  
+            {
+              "field": "cpu-load.cpu-0.irq",
+              "id": "10",
+              "meta": {}, 
+              "settings": {}, 
+              "type": "avg"
+            } 
+          ],
+          "refId": "A",
+          "timeField": "recorded_on"
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "CPU-0 utilization",
+      "tooltip": {
+        "shared": true,
+        "value_type": "cumulative"
+      },
+      "type": "graph",
+      "x-axis": true,
+      "y-axis": true,
+      "y_formats": [
+        "short",
+        "short"
+      ]
+    }, {
+      "aliasColors": {},
+      "bars": false,
+      "datasource": "elastic",
+      "editable": true,
+      "error": false,
+      "fill": 1,
+      "grid": {
+        "leftLogBase": 1,
+        "leftMax": null,
+        "leftMin": null,
+        "rightLogBase": 1,
+        "rightMax": null,
+        "rightMin": null,
+        "threshold1": null,
+        "threshold1Color": "rgba(216, 200, 27, 0.27)",
+        "threshold2": null,
+        "threshold2Color": "rgba(234, 112, 112, 0.22)"
+      },
+      "id": 20,
+      "legend": {
+        "avg": false,
+        "current": false,
+        "max": false,
+        "min": false,
+        "show": true,
+        "total": false,
+        "values": false
+      },
+      "lines": true,
+      "linewidth": 2,
+      "links": [],
+      "nullPointMode": "connected",
+      "percentage": false,
+      "pointradius": 5,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "span": 12,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "bucketAggs": [
+            {
+              "field": "recorded_on",
+              "id": "2",
+              "settings": {
+                "interval": "auto"
+              },
+              "type": "date_histogram"
+            }
+          ],
+          "metrics": [
+            {
+              "field": "cpu-load.cpu-1.steal",
+              "id": "1",
+              "meta": {},
+              "settings": {},
+              "type": "avg"
+            },
+            {
+              "field": "cpu-load.cpu-1.idle",
+              "id": "3",
+              "meta": {},
+              "settings": {},
+              "type": "avg"
+            },
+            {
+              "field": "cpu-load.cpu-1.nice",
+              "id": "4",
+              "meta": {},
+              "settings": {},
+              "type": "avg"
+            },
+            {
+              "field": "cpu-load.cpu-1.iowait",
+              "id": "5",
+              "meta": {},
+              "settings": {},
+              "type": "avg"
+            },
+            {
+              "field": "cpu-load.cpu-1.usr",
+              "id": "6",
+              "meta": {},
+              "settings": {},
+              "type": "avg"
+            },
+            {
+              "field": "cpu-load.cpu-1.sys",
+              "id": "7",
+              "meta": {},
+              "settings": {},
+              "type": "avg"
+            },
+            {
+              "field": "cpu-load.cpu-1.guest",
+              "id": "8",
+              "meta": {},
+              "settings": {},
+              "type": "avg"
+            },
+            {
+              "field": "cpu-load.cpu-1.soft",
+              "id": "9",
+              "meta": {},
+              "settings": {}, 
+              "type": "avg"
+            },  
+            {
+              "field": "cpu-load.cpu-1.irq",
+              "id": "10",
+              "meta": {}, 
+              "settings": {}, 
+              "type": "avg"
+            } 
+          ],
+          "refId": "A",
+          "timeField": "recorded_on"
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "CPU-1 utilization",
+      "tooltip": {
+        "shared": true,
+        "value_type": "cumulative"
+      },
+      "type": "graph",
+      "x-axis": true,
+      "y-axis": true,
+      "y_formats": [
+        "short",
+        "short"
+      ]
+    }, {
+      "aliasColors": {},
+      "bars": false,
+      "datasource": "elastic",
+      "editable": true,
+      "error": false,
+      "fill": 1,
+      "grid": {
+        "leftLogBase": 1,
+        "leftMax": null,
+        "leftMin": null,
+        "rightLogBase": 1,
+        "rightMax": null,
+        "rightMin": null,
+        "threshold1": null,
+        "threshold1Color": "rgba(216, 200, 27, 0.27)",
+        "threshold2": null,
+        "threshold2Color": "rgba(234, 112, 112, 0.22)"
+      },
+      "id": 21,
+      "legend": {
+        "avg": false,
+        "current": false,
+        "max": false,
+        "min": false,
+        "show": true,
+        "total": false,
+        "values": false
+      },
+      "lines": true,
+      "linewidth": 2,
+      "links": [],
+      "nullPointMode": "connected",
+      "percentage": false,
+      "pointradius": 5,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "span": 12,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "bucketAggs": [
+            {
+              "field": "recorded_on",
+              "id": "2",
+              "settings": {
+                "interval": "auto"
+              },
+              "type": "date_histogram"
+            }
+          ],
+          "metrics": [
+            {
+              "field": "cpu-load.cpu-2.steal",
+              "id": "1",
+              "meta": {},
+              "settings": {},
+              "type": "avg"
+            },
+            {
+              "field": "cpu-load.cpu-2.idle",
+              "id": "3",
+              "meta": {},
+              "settings": {},
+              "type": "avg"
+            },
+            {
+              "field": "cpu-load.cpu-2.nice",
+              "id": "4",
+              "meta": {},
+              "settings": {},
+              "type": "avg"
+            },
+            {
+              "field": "cpu-load.cpu-2.iowait",
+              "id": "5",
+              "meta": {},
+              "settings": {},
+              "type": "avg"
+            },
+            {
+              "field": "cpu-load.cpu-2.usr",
+              "id": "6",
+              "meta": {},
+              "settings": {},
+              "type": "avg"
+            },
+            {
+              "field": "cpu-load.cpu-2.sys",
+              "id": "7",
+              "meta": {},
+              "settings": {},
+              "type": "avg"
+            },
+            {
+              "field": "cpu-load.cpu-2.guest",
+              "id": "8",
+              "meta": {},
+              "settings": {},
+              "type": "avg"
+            },
+            {
+              "field": "cpu-load.cpu-2.soft",
+              "id": "9",
+              "meta": {},
+              "settings": {}, 
+              "type": "avg"
+            },  
+            {
+              "field": "cpu-load.cpu-2.irq",
+              "id": "10",
+              "meta": {}, 
+              "settings": {}, 
+              "type": "avg"
+            } 
+          ],
+          "refId": "A",
+          "timeField": "recorded_on"
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "CPU-2 utilization",
+      "tooltip": {
+        "shared": true,
+        "value_type": "cumulative"
+      },
+      "type": "graph",
+      "x-axis": true,
+      "y-axis": true,
+      "y_formats": [
+        "short",
+        "short"
+      ]
+    }, {
+      "aliasColors": {},
+      "bars": false,
+      "datasource": "elastic",
+      "editable": true,
+      "error": false,
+      "fill": 1,
+      "grid": {
+        "leftLogBase": 1,
+        "leftMax": null,
+        "leftMin": null,
+        "rightLogBase": 1,
+        "rightMax": null,
+        "rightMin": null,
+        "threshold1": null,
+        "threshold1Color": "rgba(216, 200, 27, 0.27)",
+        "threshold2": null,
+        "threshold2Color": "rgba(234, 112, 112, 0.22)"
+      },
+      "id": 22,
+      "legend": {
+        "avg": false,
+        "current": false,
+        "max": false,
+        "min": false,
+        "show": true,
+        "total": false,
+        "values": false
+      },
+      "lines": true,
+      "linewidth": 2,
+      "links": [],
+      "nullPointMode": "connected",
+      "percentage": false,
+      "pointradius": 5,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "span": 12,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "bucketAggs": [
+            {
+              "field": "recorded_on",
+              "id": "2",
+              "settings": {
+                "interval": "auto"
+              },
+              "type": "date_histogram"
+            }
+          ],
+          "metrics": [
+            {
+              "field": "cpu-load.cpu-3.steal",
+              "id": "1",
+              "meta": {},
+              "settings": {},
+              "type": "avg"
+            },
+            {
+              "field": "cpu-load.cpu-3.idle",
+              "id": "3",
+              "meta": {},
+              "settings": {},
+              "type": "avg"
+            },
+            {
+              "field": "cpu-load.cpu-3.nice",
+              "id": "4",
+              "meta": {},
+              "settings": {},
+              "type": "avg"
+            },
+            {
+              "field": "cpu-load.cpu-3.iowait",
+              "id": "5",
+              "meta": {},
+              "settings": {},
+              "type": "avg"
+            },
+            {
+              "field": "cpu-load.cpu-3.usr",
+              "id": "6",
+              "meta": {},
+              "settings": {},
+              "type": "avg"
+            },
+            {
+              "field": "cpu-load.cpu-3.sys",
+              "id": "7",
+              "meta": {},
+              "settings": {},
+              "type": "avg"
+            },
+            {
+              "field": "cpu-load.cpu-3.guest",
+              "id": "8",
+              "meta": {},
+              "settings": {},
+              "type": "avg"
+            },
+            {
+              "field": "cpu-load.cpu-3.soft",
+              "id": "9",
+              "meta": {},
+              "settings": {}, 
+              "type": "avg"
+            },  
+            {
+              "field": "cpu-load.cpu-3.irq",
+              "id": "10",
+              "meta": {}, 
+              "settings": {}, 
+              "type": "avg"
+            } 
+          ],
+          "refId": "A",
+          "timeField": "recorded_on"
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "CPU-3 utilization",
+      "tooltip": {
+        "shared": true,
+        "value_type": "cumulative"
+      },
+      "type": "graph",
+      "x-axis": true,
+      "y-axis": true,
+      "y_formats": [
+        "short",
+        "short"
+      ]
+    }, {
+      "aliasColors": {},
+      "bars": false,
+      "datasource": "elastic",
+      "editable": true,
+      "error": false,
+      "fill": 1,
+      "grid": {
+        "leftLogBase": 1,
+        "leftMax": null,
+        "leftMin": null,
+        "rightLogBase": 1,
+        "rightMax": null,
+        "rightMin": null,
+        "threshold1": null,
+        "threshold1Color": "rgba(216, 200, 27, 0.27)",
+        "threshold2": null,
+        "threshold2Color": "rgba(234, 112, 112, 0.22)"
+      },
+      "id": 23,
+      "legend": {
+        "avg": false,
+        "current": false,
+        "max": false,
+        "min": false,
+        "show": true,
+        "total": false,
+        "values": false
+      },
+      "lines": true,
+      "linewidth": 2,
+      "links": [],
+      "nullPointMode": "connected",
+      "percentage": false,
+      "pointradius": 5,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "span": 12,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "bucketAggs": [
+            {
+              "field": "recorded_on",
+              "id": "2",
+              "settings": {
+                "interval": "auto"
+              },
+              "type": "date_histogram"
+            }
+          ],
+          "metrics": [
+            {
+              "field": "cpu-load.cpu-all.steal",
+              "id": "1",
+              "meta": {},
+              "settings": {},
+              "type": "avg"
+            },
+            {
+              "field": "cpu-load.cpu-all.idle",
+              "id": "3",
+              "meta": {},
+              "settings": {},
+              "type": "avg"
+            },
+            {
+              "field": "cpu-load.cpu-all.nice",
+              "id": "4",
+              "meta": {},
+              "settings": {},
+              "type": "avg"
+            },
+            {
+              "field": "cpu-load.cpu-all.iowait",
+              "id": "5",
+              "meta": {},
+              "settings": {},
+              "type": "avg"
+            },
+            {
+              "field": "cpu-load.cpu-all.usr",
+              "id": "6",
+              "meta": {},
+              "settings": {},
+              "type": "avg"
+            },
+            {
+              "field": "cpu-load.cpu-all.sys",
+              "id": "7",
+              "meta": {},
+              "settings": {},
+              "type": "avg"
+            },
+            {   
+              "field": "cpu-load.cpu-all.guest",
+              "id": "8",
+              "meta": {}, 
+              "settings": {}, 
+              "type": "avg"
+            },
+            {   
+              "field": "cpu-load.cpu-all.soft",
+              "id": "9",
+              "meta": {}, 
+              "settings": {}, 
+              "type": "avg"
+            },
+            {   
+              "field": "cpu-load.cpu-all.irq",
+              "id": "10",
+              "meta": {}, 
+              "settings": {}, 
+              "type": "avg"
+            }   
+          ],
+          "refId": "A",
+          "timeField": "recorded_on"
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "CPU-all utilization",
+      "tooltip": {
+        "shared": true,
+        "value_type": "cumulative"
+      },
+      "type": "graph",
+      "x-axis": true,
+      "y-axis": true,
+      "y_formats": [
+        "short",
+        "short"
+      ]
+    }
+  ],
+  "showTitle": true,
+  "title": "CPU utilization [ ALL ]"
+}

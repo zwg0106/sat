@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+{% from "forms/macros.html" import render_field %}
+
+{% block dashboard %}
+  <section class='container'>
+
+    <div align="center" class="row">
+          <form id="submission" class="form-horizontal" action="/upload/" method="POST" enctype="multipart/form-data">
+            {{ form.csrf_token }}
+            {{ form.hidden_tag() }}
+            <fieldset>
+
+            <div class="panel panel-danger">
+              <div class="panel-heading" style="background-color: #a94442; color: #f5f5f5; border-color: #a94442">
+                <h3 class="panel-title">{{help_text}}</h3>
+              </div>
+
+              <div class="panel-body">
+                <div class="alert alert-dismissable alert-info" style="background-color: #f2dede; color: #31708f; border-color: #f2dede">
+                  <button type="button" class="close" data-dismiss="alert">×</button>
+                  <p><b>Example:</b> {{placeholder}}</p>
+                </div>
+                {{ render_field(form.datafile, multiple="") }}
+              </div>
+            </div>
+
+            <div class="panel panel-info">
+              <div class="panel-heading" style="background-color: #286090; color: #f5f5f5; border-color: #286090">
+                <h3 class="panel-title">Graphing Options</h3>
+              </div>
+              <div class="panel-body">
+
+                <div class="form-group">
+                  <div>
+                    {{ render_field(form.check_all) }}
+                  </div>
+                </div>
+
+                <label for="select" class="control-label">Select SAR options to graph (use Ctrl key for multiple selection)</label>
+                <table id="analysis_table" name="analysis" style="width:400px;">
+                  <tbody>
+                    <tr>
+                      <td>
+                        {{ render_field(form.graph_types, class="form-control") }}
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+
+              </div>
+            </div>
+
+            <div class="form-group">
+              <div>
+                <button type="submit" class="btn btn-info" style="background-color: #286090; border-color: #286090">Upload</button>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <div class="progress progress-striped">
+                <div class="progress-bar progress-bar-success" style="width: {{progress}}%"></div>
+              </div>
+            </div>
+
+            </fieldset>
+
+          </form>
+
+    </div>
+  </section>
+{% endblock %}

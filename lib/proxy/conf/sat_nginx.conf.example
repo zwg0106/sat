@@ -1,0 +1,27 @@
+upstream flask {
+    server %%SERVERENDPOINT%%:8000;
+}
+
+server {
+  listen 8001;
+  server_name default_server;
+  client_max_body_size 800M;
+  charset utf-8;
+
+  # root /opt/sarjitsu/src/app/templates/;
+  error_page   500 502 503 504 =200 /static/defeat.jpg;
+  error_page   404 =200 /static/404.gif;
+
+
+  location / {
+    try_files $uri @app;
+
+    default_type  text/plain;
+    add_header    Content-Disposition  'inline';
+
+  }
+
+  location @app {
+    proxy_pass http://flask;
+  }
+}

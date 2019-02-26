@@ -1,0 +1,17 @@
+{
+  "content": "This dashboard has been divided into different kinds of graphs for various parameters, that were obtained from the __sa binary__ that you've uploaded. \n\n`Please Note:` All the rows are currently in collapsed mode, meaning, you need to click on the stats you wanna view.",
+  "editable": true,
+  "error": false,
+  "id": 15,
+  "links": [],
+  "mode": "markdown",
+  "gridPos": {
+    "h": 3,
+    "w": 24,
+    "x": 0,
+    "y": 1 
+  },
+  "style": {},
+  "title": "System Activity Reporter (SAR)",
+  "type": "text"
+}

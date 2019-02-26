@@ -1,0 +1,7 @@
+{
+    "single": {
+	"memory_util": "r",
+	"cpu_all": "u"
+    },
+    "check_all": ["A", "-ru"]
+}
