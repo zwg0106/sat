@@ -1,4 +1,4 @@
-urllib3==1.22
+urllib3==1.26.5
 elasticsearch==6.0.0
 Flask==0.12.2
 requests==2.18.4
